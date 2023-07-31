@@ -3,14 +3,12 @@ import requests
 import time
 import os
 
-# Create a Prometheus Gauge metric
 response_time_metric = Gauge('website_response_time_seconds', 'Website response time in seconds', ['url'])
 WEBSITE_URL = os.getenv('WEBSITE_URL')
 PORT = os.getenv('PORT')
 
 WEBSITE_URL = "https://google.com"
 PORT = 8000
-# Function to measure response time
 def measure_response_time(url):
     try:
         start_time = time.time()
@@ -21,9 +19,7 @@ def measure_response_time(url):
         print(f"Error measuring response time for {url}: {e}")
 
 if __name__ == '__main__':
-    # Set up a web server to expose metrics
     start_http_server(PORT)
     while True:
-        # Measure the response time and update the metric every 5 seconds
         measure_response_time(WEBSITE_URL)
         time.sleep(5)
